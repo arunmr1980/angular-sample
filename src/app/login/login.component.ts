@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service'
 import { LoginRequest } from './login-request'
+import { TokenDataService } from '../auth/token-data.service'
 
 @Component({
   selector: 'app-login',
@@ -9,19 +10,23 @@ import { LoginRequest } from './login-request'
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService:LoginService) { }
+  constructor(private loginService:LoginService,
+              private tokenDataService: TokenDataService) { }
 
   ngOnInit(): void {
   }
 
-  login(){
+  login(username: string, password: string){
     console.log("[LoginComponent] Posting login")
     let loginRequest:LoginRequest = {
-      "username": "postman-106",
-      "password" : "abc123"
+      "username": username,
+      "password" : password
     }
-    this.loginService.login(loginRequest).subscribe(any => {
-      console.log("Login done");
+    this.loginService.login(loginRequest).subscribe(loginResponse => {
+      console.log("Login done")
+      console.log(loginResponse)
+      this.tokenDataService.setAccessToken(loginResponse.access_token)
+      this.tokenDataService.setRefreshToken(loginResponse.refresh_token)
     });
   }
 

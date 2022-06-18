@@ -7,6 +7,7 @@ import { Observable, throwError, of } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 import { LoginRequest } from './login-request'
+import { LoginResponse } from './login-response'
 
 
 @Injectable({
@@ -24,7 +25,7 @@ export class LoginService {
   }
 
 
-  login(loginRequest: LoginRequest): Observable<any> {
+  login(loginRequest: LoginRequest): Observable<LoginResponse> {
     console.log("[Login Service] Posting login request")
     console.log(this.loginURL)
     console.log(loginRequest)
@@ -34,14 +35,6 @@ export class LoginService {
                      catchError(this.handleError<any>('login'))
                     )
   }
-
-  /**
-    * Handle Http operation that failed.
-    * Let the app continue.
-    *
-    * @param operation - name of the operation that failed
-    * @param result - optional value to return as the observable result
-    */
 
    private handleError<T>(operation = 'operation', result?: T) {
 
