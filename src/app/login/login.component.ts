@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { LoginService } from './login.service'
 import { LoginRequest } from './login-request'
 import { TokenDataService } from '../auth/token-data.service'
@@ -10,8 +12,9 @@ import { TokenDataService } from '../auth/token-data.service'
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService:LoginService,
-              private tokenDataService: TokenDataService) { }
+  constructor(private router:Router,
+              private loginService:LoginService,
+              private tokenDataService:TokenDataService) { }
 
   ngOnInit(): void {
   }
@@ -25,8 +28,13 @@ export class LoginComponent implements OnInit {
     this.loginService.login(loginRequest).subscribe(loginResponse => {
       console.log("Login done")
       console.log(loginResponse)
-      this.tokenDataService.setAccessToken(loginResponse.access_token)
-      this.tokenDataService.setRefreshToken(loginResponse.refresh_token)
+      if(loginResponse.response_code == "login_success"){
+        this.tokenDataService.setAccessToken(loginResponse.access_token)
+        this.tokenDataService.setRefreshToken(loginResponse.refresh_token)
+        this.router.navigate(['customer-files'])
+      }
+
+
     });
   }
 
