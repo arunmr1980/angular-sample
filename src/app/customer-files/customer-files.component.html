@@ -1,1 +1,11 @@
-<p>customer-files works!</p>
+<p>
+  <button type="button" title="get customer file" (click)="getCustomerFiles('1234')">
+    Get Customer Files
+  </button>
+</p>
+
+<div>
+  <li *ngFor="let customerFile of customerFiles">
+    {{customerFile | json}}
+  </li>
+</div>

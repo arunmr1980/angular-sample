@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private router:Router,
               private loginService:LoginService,
-              private tokenDataService:TokenDataService) { }
+              public tokenDataService:TokenDataService) { }
 
   ngOnInit(): void {
   }
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
       "username": username,
       "password" : password
     }
+
     this.loginService.login(loginRequest).subscribe(loginResponse => {
       console.log("Login done")
       console.log(loginResponse)
@@ -33,8 +34,6 @@ export class LoginComponent implements OnInit {
         this.tokenDataService.setRefreshToken(loginResponse.refresh_token)
         this.router.navigate(['customer-files'])
       }
-
-
     });
   }
 

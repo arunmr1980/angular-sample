@@ -9,13 +9,15 @@ import { catchError, retry } from 'rxjs/operators';
 import { LoginRequest } from './login-request'
 import { LoginResponse } from './login-response'
 
+import { environment } from '../../environments/environment'
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  loginURL = 'https://0ljxnqmfoc.execute-api.eu-north-1.amazonaws.com/Uat/auth/login'
+  loginURL = environment.api_url + '/auth/login'
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -30,7 +32,7 @@ export class LoginService {
     console.log(this.loginURL)
     console.log(loginRequest)
     console.log(this.httpOptions)
-    return this.http.post<LoginRequest>(this.loginURL, loginRequest, this.httpOptions)
+    return this.http.post<LoginResponse>(this.loginURL, loginRequest, this.httpOptions)
                     .pipe(
                      catchError(this.handleError<any>('login'))
                     )

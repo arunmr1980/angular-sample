@@ -1,5 +1,4 @@
-<p>login works!</p>
-<div>
+<div *ngIf="tokenDataService.accessToken == 'NA'">
   <label for="username">Username</label>
   <input type="text" id="username" #username placeholder="Username" value="postman-106">
   <br>
