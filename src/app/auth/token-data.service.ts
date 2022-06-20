@@ -18,6 +18,11 @@ export class TokenDataService {
     return this.accessToken;
   }
 
+  public resetTokens(){
+    this.accessToken = "NA"
+    this.refreshToken = "NA"
+  }
+
   public setRefreshToken(refreshToken:string){
     this.refreshToken = refreshToken
   }

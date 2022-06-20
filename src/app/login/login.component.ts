@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { LoginService } from './login.service'
 import { LoginRequest } from './login-request'
+import { LogoutRequest } from './logout-request'
 import { TokenDataService } from '../auth/token-data.service'
 
 @Component({
@@ -33,6 +34,21 @@ export class LoginComponent implements OnInit {
         this.tokenDataService.setAccessToken(loginResponse.access_token)
         this.tokenDataService.setRefreshToken(loginResponse.refresh_token)
         this.router.navigate(['customer-files'])
+      }
+    });
+  }
+
+
+  logout(){
+    console.log("[LoginComponent] Logging out")
+    let logoutRequest:LogoutRequest = {
+      "access_token": this.tokenDataService.getAccessToken()
+    }
+    this.loginService.logout(logoutRequest).subscribe(logoutResponse => {
+      console.log("Logout complete")
+      console.log(logoutResponse)
+      if(logoutResponse.response_code == "logout_success"){
+        this.tokenDataService.resetTokens()
       }
     });
   }
