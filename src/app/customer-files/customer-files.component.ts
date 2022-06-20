@@ -15,7 +15,7 @@ export class CustomerFilesComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("[CustomerFilesComponent] ngOnInit()")
-    this.getCustomerFiles('112')
+    // this.getCustomerFiles('112')
   }
 
 
