@@ -1,1 +1,7 @@
-<p>auth works!</p>
+<div>
+  <button type="button" title="refresh" (click)="refreshTokens()">Refresh Tokens</button>
+  <ul>
+    <li>{{tokenDataService.refreshToken}}</li>
+    <li>{{tokenDataService.accessToken}}</li>
+  </ul>
+</div>
